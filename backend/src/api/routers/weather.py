@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import requests
 from fastapi import APIRouter, HTTPException
 
-from nook.api.models.schemas import WeatherResponse
+from src.api.models.schemas import WeatherResponse
 
 # 環境変数の読み込み
 load_dotenv()

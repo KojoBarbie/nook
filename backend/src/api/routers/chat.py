@@ -8,8 +8,8 @@ from typing import List, Dict, Any, Optional
 from fastapi import APIRouter, HTTPException, Depends
 from dotenv import load_dotenv
 
-from nook.api.models.schemas import ChatRequest, ChatResponse
-from nook.common.grok_client import Grok3Client
+from src.api.models.schemas import ChatRequest, ChatResponse
+from src.common.grok_client import Grok3Client
 
 # 環境変数の読み込み
 load_dotenv()

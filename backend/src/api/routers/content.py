@@ -5,8 +5,8 @@ from typing import List, Dict, Any, Optional
 
 from fastapi import APIRouter, HTTPException
 
-from nook.api.models.schemas import ContentResponse, ContentItem
-from nook.common.storage import LocalStorage
+from src.api.models.schemas import ContentResponse, ContentItem
+from src.common.storage import LocalStorage
 
 router = APIRouter()
 storage = LocalStorage("data")

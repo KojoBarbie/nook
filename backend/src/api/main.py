@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-from nook.api.routers import content, weather, chat
+from src.api.routers import content, weather, chat
 
 # 環境変数の読み込み
 load_dotenv()
