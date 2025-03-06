@@ -10,7 +10,7 @@ from typing import List, Dict, Optional, Any
 import tweepy
 from dotenv import load_dotenv
 
-from nook.common.storage import LocalStorage
+from src.common.storage import LocalStorage
 
 # ロギングの設定
 logging.basicConfig(

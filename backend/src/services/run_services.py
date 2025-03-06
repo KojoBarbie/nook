@@ -12,14 +12,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # GitHubトレンドサービス
-from nook.services.github_trending.github_trending import GithubTrending
+from src.services.github_trending.github_trending import GithubTrending
 
-# 他のサービスをインポート（クラス名を修正）
-from nook.services.hacker_news.hacker_news import HackerNewsRetriever
-from nook.services.reddit_explorer.reddit_explorer import RedditExplorer
-from nook.services.tech_feed.tech_feed import TechFeed
-from nook.services.paper_summarizer.paper_summarizer import PaperSummarizer
-from nook.services.twitter_poster.twitter_poster import TwitterPoster
+# 他のサービスをインポート
+from src.services.hacker_news.hacker_news import HackerNewsRetriever
+from src.services.reddit_explorer.reddit_explorer import RedditExplorer
+from src.services.tech_feed.tech_feed import TechFeed
+from src.services.paper_summarizer.paper_summarizer import PaperSummarizer
+from src.services.twitter_poster.twitter_poster import TwitterPoster
 
 def run_github_trending():
     """
@@ -79,10 +79,10 @@ def run_paper_summarizer():
     """
     print("arXiv論文を収集・要約しています...")
     try:
-        # Grok APIキーの確認
-        if not os.environ.get("GROK_API_KEY"):
-            print("警告: GROK_API_KEY が設定されていません。")
-            print("論文要約には Grok API が必要です。")
+        # OpenAI APIキーの確認
+        if not os.environ.get("OPENAI_API_KEY"):
+            print("警告: OPENAI_API_KEY が設定されていません。")
+            print("論文要約には OpenAI API が必要です。")
             return
             
         paper_summarizer = PaperSummarizer()

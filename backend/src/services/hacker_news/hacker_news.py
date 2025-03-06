@@ -8,8 +8,8 @@ from typing import List, Optional
 import requests
 from bs4 import BeautifulSoup
 
-from nook.common.storage import LocalStorage
-from nook.common.grok_client import Grok3Client
+from src.common.storage import LocalStorage
+from src.common.openai_client import OpenAIClient
 
 
 @dataclass
@@ -170,14 +170,14 @@ class HackerNewsRetriever:
             # print("翻訳処理をスキップします（APIエラー回避のため）")
             
             # 以下は翻訳処理のコメントアウト
-            # Grok APIクライアントの初期化
-            grok_client = Grok3Client()
+            # OpenAI APIクライアントの初期化
+            openai_client = OpenAIClient()
             
             for story in stories:
                 # タイトルの翻訳
                 if story.title:
                     prompt = f"以下の英語のテキストを自然な日本語に翻訳してください。原文のニュアンスを保ちつつ、日本語として読みやすい文章にしてください。\n\n{story.title}"
-                    story.title = grok_client.generate_content(prompt=prompt, temperature=0.3)
+                    story.title = openai_client.generate_content(prompt=prompt, temperature=0.3)
                 
                 # 本文の翻訳
                 if story.text:
@@ -188,13 +188,13 @@ class HackerNewsRetriever:
                         
                         for chunk in chunks:
                             prompt = f"以下の英語のテキストを自然な日本語に翻訳してください。原文のニュアンスを保ちつつ、日本語として読みやすい文章にしてください。\n\n{chunk}"
-                            translated_chunk = grok_client.generate_content(prompt=prompt, temperature=0.3)
+                            translated_chunk = openai_client.generate_content(prompt=prompt, temperature=0.3)
                             translated_chunks.append(translated_chunk)
                         
                         story.text = "".join(translated_chunks)
                     else:
                         prompt = f"以下の英語のテキストを自然な日本語に翻訳してください。原文のニュアンスを保ちつつ、日本語として読みやすい文章にしてください。\n\n{story.text}"
-                        story.text = grok_client.generate_content(prompt=prompt, temperature=0.3)
+                        story.text = openai_client.generate_content(prompt=prompt, temperature=0.3)
         
         except Exception as e:
             print(f"Error translating stories: {str(e)}")
