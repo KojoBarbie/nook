@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # GitHubトレンドサービス
-from src.services.github_trending.github_trending import GithubTrending
+from src.services.github_trending.github_trending import GitHubTrending
 
 # 他のサービスをインポート
 from src.services.hacker_news.hacker_news import HackerNewsRetriever
@@ -26,7 +26,7 @@ def run_github_trending():
     GitHubトレンドサービスを実行します。
     """
     print("GitHubトレンドリポジトリを収集しています...")
-    github_trending = GithubTrending()
+    github_trending = GitHubTrending()
     github_trending.run()
     print("GitHubトレンドリポジトリの収集が完了しました。")
 

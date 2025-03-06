@@ -11,7 +11,7 @@ import praw
 from praw.models import Submission
 
 from src.common.openai_client import OpenAIClient
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 
 
 @dataclass
@@ -102,7 +102,7 @@ class RedditExplorer:
         )
         
         self.openai_client = OpenAIClient()
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         
         # サブレディットの設定を読み込む
         script_dir = Path(__file__).parent

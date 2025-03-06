@@ -10,7 +10,7 @@ from typing import List, Dict, Optional, Any
 import tweepy
 from dotenv import load_dotenv
 
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 
 # ロギングの設定
 logging.basicConfig(
@@ -38,7 +38,7 @@ class TwitterPoster:
             ストレージディレクトリのパス。
         """
         load_dotenv()
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         
         # Twitter API認証
         self.client = tweepy.Client(

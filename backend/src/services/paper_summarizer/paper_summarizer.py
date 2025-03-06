@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 from src.common.openai_client import OpenAIClient
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 
 
 @dataclass
@@ -59,7 +59,7 @@ class PaperSummarizer:
         storage_dir : str, default="data"
             ストレージディレクトリのパス。
         """
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         self.openai_client = OpenAIClient()
     
     def run(self, limit: int = 5) -> None:

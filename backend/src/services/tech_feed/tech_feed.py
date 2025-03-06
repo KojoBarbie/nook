@@ -11,7 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.common.openai_client import OpenAIClient
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 
 
 @dataclass
@@ -63,7 +63,7 @@ class TechFeed:
         storage_dir : str, default="data"
             ストレージディレクトリのパス。
         """
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         self.openai_client = OpenAIClient()
         
         # フィードの設定を読み込む
