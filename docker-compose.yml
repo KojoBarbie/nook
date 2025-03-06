@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+
+  frontend:
+    build: ./frontend
+    environment:
+      - VITE_API_URL=/api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+      - ./data:/app/data
+      - /app/venv
+
+volumes:
+  data: 

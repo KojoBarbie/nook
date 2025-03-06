@@ -72,17 +72,19 @@ git clone https://github.com/Tomatio13/nook.git
 cd nook
 
 # バックエンド依存関係のインストール
+cd backend
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
 # フロントエンド依存関係のインストール
-cd nook/frontend
+cd ../frontend
 npm install
 # または
 yarn install
 
 # 環境変数の設定
+cd ../backend
 cp .env.example .env
 
 # .envファイルの環境変数を設定
@@ -148,23 +150,48 @@ data/
 
 ```
 nook/
-├── api/                  # FastAPI バックエンド
-│   ├── models/           # データモデル
-│   └── routers/          # APIルーター
-├── common/               # 共通ユーティリティ
-│   ├── storage.py        # ローカルストレージ
-│   └── grok_client.py    # Grok3 APIクライアント
-├── frontend/             # React + Vite フロントエンド
-│   ├── src/              # ソースコード
-│   │   ├── components/   # UIコンポーネント
-│   │   └── api/          # APIクライアント
-│   └── public/           # 静的ファイル
-└── services/             # サービス
-    ├── github_trending/  # GitHub Trendingサービス
-    ├── hacker_news/      # Hacker Newsサービス
-    ├── paper_summarizer/ # 論文要約サービス
-    ├── reddit_explorer/  # Redditエクスプローラー
-    └── tech_feed/        # 技術フィードサービス
+├── backend/                # バックエンドのルートディレクトリ
+│   ├── pyproject.toml     # Pythonプロジェクト設定
+│   ├── requirements.txt   # Python依存関係
+│   ├── .env.example      # バックエンド環境変数テンプレート
+│   └── src/              # バックエンドソースコード
+│       ├── api/          # FastAPI関連
+│       │   ├── models/   # データモデル
+│       │   └── routers/  # APIルーター
+│       ├── common/       # 共通ユーティリティ
+│       │   ├── storage.py
+│       │   └── grok_client.py
+│       └── services/     # 各種サービス
+│           ├── github_trending/
+│           ├── hacker_news/
+│           ├── paper_summarizer/
+│           ├── reddit_explorer/
+│           └── tech_feed/
+│
+├── frontend/              # フロントエンドのルートディレクトリ
+│   ├── package.json      # Node.js依存関係
+│   ├── vite.config.ts    # Vite設定
+│   ├── public/          # 静的ファイル
+│   └── src/             # フロントエンドソースコード
+│       ├── components/  # UIコンポーネント
+│       ├── api/         # APIクライアント
+│       └── styles/      # スタイルシート
+│
+├── data/                  # 共有データディレクトリ
+│   ├── github_trending/
+│   ├── hacker_news/
+│   ├── paper_summarizer/
+│   ├── reddit_explorer/
+│   └── tech_feed/
+│
+├── docs/                  # プロジェクトドキュメント
+│   ├── api/             # APIドキュメント
+│   └── setup/           # セットアップガイド
+│
+├── scripts/               # 開発・デプロイメントスクリプト
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
 
 ## ライセンス
