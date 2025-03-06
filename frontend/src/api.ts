@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ContentResponse, WeatherResponse } from './types';
+import { ContentResponse, WeatherResponse } from '../../backend/src/frontend/src/types';
 
 const api = axios.create({
   baseURL: 'http://localhost:8000/api'
