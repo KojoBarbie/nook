@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ContentResponse, WeatherResponse } from '../../backend/src/frontend/src/types';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api'
+  baseURL: import.meta.env.VITE_API_URL || '/api'
 });
 
 export const getContent = async (source: string, date?: string) => {

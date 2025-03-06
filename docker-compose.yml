@@ -21,12 +21,6 @@ services:
 
   backend:
     build: ./backend
-    environment:
-      - OPENWEATHERMAP_API_KEY=${OPENWEATHERMAP_API_KEY}
-      - GROK_API_KEY=${GROK_API_KEY}
-      - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID}
-      - REDDIT_CLIENT_SECRET=${REDDIT_CLIENT_SECRET}
-      - REDDIT_USER_AGENT=${REDDIT_USER_AGENT}
     volumes:
       - ./backend:/app
       - ./data:/app/data
