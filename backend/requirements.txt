@@ -14,6 +14,9 @@ beautifulsoup4>=4.12.0
 feedparser>=6.0.10
 tomli>=2.0.1
 
+# AWS
+boto3>=1.26.0
+
 # Reddit API
 praw>=7.7.0
 

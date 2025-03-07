@@ -9,7 +9,7 @@ from typing import List, Optional
 import requests
 from bs4 import BeautifulSoup
 
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 from src.common.openai_client import OpenAIClient
 
 
@@ -36,26 +36,12 @@ class Repository:
     stars: int
 
 
-class GithubTrending:
-    """
-    GitHubのトレンドリポジトリを収集するクラス。
-    
-    Parameters
-    ----------
-    storage_dir : str, default="data"
-        ストレージディレクトリのパス。
-    """
-    
-    def __init__(self, storage_dir: str = "data"):
+class GitHubTrending:
+    def __init__(self):
         """
-        GithubTrendingを初期化します。
-        
-        Parameters
-        ----------
-        storage_dir : str, default="data"
-            ストレージディレクトリのパス。
+        GitHubTrendingを初期化します。
         """
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         self.base_url = "https://github.com/trending"
         
         # 言語の設定を読み込む

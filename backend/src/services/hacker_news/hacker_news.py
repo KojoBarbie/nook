@@ -8,7 +8,7 @@ from typing import List, Optional
 import requests
 from bs4 import BeautifulSoup
 
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 from src.common.openai_client import OpenAIClient
 
 
@@ -38,23 +38,13 @@ class Story:
 class HackerNewsRetriever:
     """
     Hacker Newsの記事を収集するクラス。
-    
-    Parameters
-    ----------
-    storage_dir : str, default="data"
-        ストレージディレクトリのパス。
     """
     
-    def __init__(self, storage_dir: str = "data"):
+    def __init__(self):
         """
         HackerNewsRetrieverを初期化します。
-        
-        Parameters
-        ----------
-        storage_dir : str, default="data"
-            ストレージディレクトリのパス。
         """
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         self.base_url = "https://hacker-news.firebaseio.com/v0"
     
     def run(self, limit: int = 30) -> None:

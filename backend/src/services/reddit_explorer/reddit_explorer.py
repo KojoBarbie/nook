@@ -11,7 +11,7 @@ import praw
 from praw.models import Submission
 
 from src.common.openai_client import OpenAIClient
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 
 
 @dataclass
@@ -63,16 +63,13 @@ class RedditExplorer:
         Reddit APIのクライアントシークレット。指定しない場合は環境変数から取得。
     user_agent : str, optional
         Reddit APIのユーザーエージェント。指定しない場合は環境変数から取得。
-    storage_dir : str, default="data"
-        ストレージディレクトリのパス。
     """
     
     def __init__(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        user_agent: Optional[str] = None,
-        storage_dir: str = "data"
+        user_agent: Optional[str] = None
     ):
         """
         RedditExplorerを初期化します。
@@ -85,8 +82,6 @@ class RedditExplorer:
             Reddit APIのクライアントシークレット。指定しない場合は環境変数から取得。
         user_agent : str, optional
             Reddit APIのユーザーエージェント。指定しない場合は環境変数から取得。
-        storage_dir : str, default="data"
-            ストレージディレクトリのパス。
         """
         self.client_id = client_id or os.environ.get("REDDIT_CLIENT_ID")
         self.client_secret = client_secret or os.environ.get("REDDIT_CLIENT_SECRET")
@@ -102,7 +97,7 @@ class RedditExplorer:
         )
         
         self.openai_client = OpenAIClient()
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         
         # サブレディットの設定を読み込む
         script_dir = Path(__file__).parent

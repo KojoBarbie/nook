@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 from src.common.openai_client import OpenAIClient
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 
 
 @dataclass
@@ -43,23 +43,13 @@ class PaperInfo:
 class PaperSummarizer:
     """
     arXiv論文を収集・要約するクラス。
-    
-    Parameters
-    ----------
-    storage_dir : str, default="data"
-        ストレージディレクトリのパス。
     """
     
-    def __init__(self, storage_dir: str = "data"):
+    def __init__(self):
         """
         PaperSummarizerを初期化します。
-        
-        Parameters
-        ----------
-        storage_dir : str, default="data"
-            ストレージディレクトリのパス。
         """
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         self.openai_client = OpenAIClient()
     
     def run(self, limit: int = 5) -> None:
@@ -138,14 +128,14 @@ class PaperSummarizer:
             処理済みの論文IDのリスト。
         """
         today = datetime.now()
-        date_str = today.strftime("%Y-%m-%d")
-        file_path = Path(self.storage.base_dir) / "paper_summarizer" / f"arxiv_ids-{date_str}.txt"
-        
-        if not file_path.exists():
+        try:
+            content = self.storage.load_markdown("paper_summarizer_ids", today)
+            if content is None:
+                return []
+            return [line.strip() for line in content.split('\n') if line.strip()]
+        except Exception as e:
+            print(f"処理済みIDの読み込みに失敗しました: {str(e)}")
             return []
-        
-        with open(file_path, "r", encoding="utf-8") as f:
-            return [line.strip() for line in f if line.strip()]
     
     def _save_processed_ids(self, paper_ids: List[str]) -> None:
         """
@@ -157,25 +147,20 @@ class PaperSummarizer:
             処理済みの論文IDのリスト。
         """
         today = datetime.now()
-        date_str = today.strftime("%Y-%m-%d")
-        dir_path = Path(self.storage.base_dir) / "paper_summarizer"
-        dir_path.mkdir(parents=True, exist_ok=True)
-        
-        file_path = dir_path / f"arxiv_ids-{date_str}.txt"
         
         # 既存のIDを読み込む
-        existing_ids = []
-        if file_path.exists():
-            with open(file_path, "r", encoding="utf-8") as f:
-                existing_ids = [line.strip() for line in f if line.strip()]
+        existing_ids = self._get_processed_ids()
         
         # 新しいIDを追加
         all_ids = existing_ids + paper_ids
         all_ids = list(dict.fromkeys(all_ids))  # 重複を削除
         
-        with open(file_path, "w", encoding="utf-8") as f:
-            for paper_id in all_ids:
-                f.write(f"{paper_id}\n")
+        # S3に保存
+        content = '\n'.join(all_ids)
+        try:
+            self.storage.save_markdown(content, "paper_summarizer_ids", today)
+        except Exception as e:
+            print(f"処理済みIDの保存に失敗しました: {str(e)}")
     
     def _retrieve_paper_info(self, paper_id: str) -> Optional[PaperInfo]:
         """

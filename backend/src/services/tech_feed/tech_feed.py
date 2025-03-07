@@ -11,7 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.common.openai_client import OpenAIClient
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 
 
 @dataclass
@@ -47,23 +47,13 @@ class Article:
 class TechFeed:
     """
     技術ブログのRSSフィードを監視・収集・要約するクラス。
-    
-    Parameters
-    ----------
-    storage_dir : str, default="data"
-        ストレージディレクトリのパス。
     """
     
-    def __init__(self, storage_dir: str = "data"):
+    def __init__(self):
         """
         TechFeedを初期化します。
-        
-        Parameters
-        ----------
-        storage_dir : str, default="data"
-            ストレージディレクトリのパス。
         """
-        self.storage = LocalStorage(storage_dir)
+        self.storage = S3Storage()
         self.openai_client = OpenAIClient()
         
         # フィードの設定を読み込む

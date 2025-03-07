@@ -4,12 +4,13 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 
 from src.api.models.schemas import ContentResponse, ContentItem
-from src.common.storage import LocalStorage
+from src.common.s3_storage import S3Storage
 
 router = APIRouter()
-storage = LocalStorage("data")
+storage = S3Storage()
 
 SOURCE_MAPPING = {
     "reddit": "reddit_explorer",
