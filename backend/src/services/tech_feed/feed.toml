@@ -32,18 +32,23 @@ programming = [
 
 zenn = [
     "https://zenn.dev/topics/cursor/feed",
-    "https://zenn.dev/topics/cline/feed",
-    "https://zenn.dev/topics/langchain/feed",
     "https://zenn.dev/topics/mcp/feed",
-    "https://zenn.dev/topics/ai駆動開発/feed"
+    "https://zenn.dev/topics/ai/feed",
+    "https://zenn.dev/topics/flutter/feed",
+    "https://zenn.dev/topics/react/feed",
+    "https://zenn.dev/topics/swift/feed",
+    "https://zenn.dev/topics/terraform/feed",
+    "https://zenn.dev/topics/aws/feed"
 ]
 
 qitta = [
     "http://qiita.com/tags/AI/feed.atom",
     "http://qiita.com/tags/Cursor/feed.atom",
-    "http://qiita.com/tags/LangChain/feed.atom",
-    "http://qiita.com/tags/Cline/feed.atom",
-    "http://qiita.com/tags/LLM/feed.atom",
-    "http://qiita.com/tags/AI駆動開発/feed.atom",
-    "http://qiita.com/tags/mcp/feed.atom"
+    "http://qiita.com/tags/mcp/feed.atom",
+    "http://qiita.com/tags/flutter/feed.atom",
+    "http://qiita.com/tags/swift/feed.atom",
+    "http://qiita.com/tags/aws/feed.atom",
+    "http://qiita.com/tags/terraform/feed.atom",
+    "http://qiita.com/tags/react/feed.atom",
+    "http://qiita.com/tags/proxmox/feed.atom"
 ]
