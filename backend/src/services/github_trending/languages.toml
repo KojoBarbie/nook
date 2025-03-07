@@ -19,7 +19,5 @@ specific = [
     "swift",
     "dart",
     "ruby",
-    "php",
-    "csharp",
-    "julia"
+    "php"
 ] 
