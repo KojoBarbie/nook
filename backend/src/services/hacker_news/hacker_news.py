@@ -38,21 +38,11 @@ class Story:
 class HackerNewsRetriever:
     """
     Hacker Newsの記事を収集するクラス。
-    
-    Parameters
-    ----------
-    storage_dir : str, default="data"
-        ストレージディレクトリのパス。
     """
     
-    def __init__(self, storage_dir: str = "data"):
+    def __init__(self):
         """
         HackerNewsRetrieverを初期化します。
-        
-        Parameters
-        ----------
-        storage_dir : str, default="data"
-            ストレージディレクトリのパス。
         """
         self.storage = S3Storage()
         self.base_url = "https://hacker-news.firebaseio.com/v0"

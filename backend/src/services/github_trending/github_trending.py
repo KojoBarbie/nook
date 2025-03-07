@@ -37,14 +37,9 @@ class Repository:
 
 
 class GitHubTrending:
-    def __init__(self, storage_dir: str):
+    def __init__(self):
         """
         GitHubTrendingを初期化します。
-        
-        Parameters
-        ----------
-        storage_dir : str
-            ストレージのディレクトリパス。
         """
         self.storage = S3Storage()
         self.base_url = "https://github.com/trending"

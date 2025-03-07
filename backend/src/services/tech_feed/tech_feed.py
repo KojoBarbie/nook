@@ -47,21 +47,11 @@ class Article:
 class TechFeed:
     """
     技術ブログのRSSフィードを監視・収集・要約するクラス。
-    
-    Parameters
-    ----------
-    storage_dir : str, default="data"
-        ストレージディレクトリのパス。
     """
     
-    def __init__(self, storage_dir: str = "data"):
+    def __init__(self):
         """
         TechFeedを初期化します。
-        
-        Parameters
-        ----------
-        storage_dir : str, default="data"
-            ストレージディレクトリのパス。
         """
         self.storage = S3Storage()
         self.openai_client = OpenAIClient()

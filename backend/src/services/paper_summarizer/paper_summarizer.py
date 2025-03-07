@@ -43,21 +43,11 @@ class PaperInfo:
 class PaperSummarizer:
     """
     arXiv論文を収集・要約するクラス。
-    
-    Parameters
-    ----------
-    storage_dir : str, default="data"
-        ストレージディレクトリのパス。
     """
     
-    def __init__(self, storage_dir: str = "data"):
+    def __init__(self):
         """
         PaperSummarizerを初期化します。
-        
-        Parameters
-        ----------
-        storage_dir : str, default="data"
-            ストレージディレクトリのパス。
         """
         self.storage = S3Storage()
         self.openai_client = OpenAIClient()
