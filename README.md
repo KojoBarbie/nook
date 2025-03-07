@@ -4,7 +4,7 @@ Nookは、さまざまな情報ソース（Reddit、Hacker News、GitHub Trendin
 
 Discus0434氏の[Nook](https://github.com/discus0434/nook)のフォークである、Tomatio13氏の[Nook](https://github.com/Tomatio13/nook)をベースとして、以下を変更しています。
 - フロントエンド・バックエンドをそれぞれDockerコンテナ上で実行するように変更
-- nginxを使用し、「https://localhost」でアクセスできるように変更
+- nginxを使用し、「https://localhost 」でアクセスできるように変更
 - 情報収集を毎日朝9時に実行するように、コンテナにcronを設定するように変更
 - ローカルストレージの代わりにAWS S3を使用するように変更(サーバー自体はローカルで動かす想定です)
 - Grokではなく、OpenAI APIを使用するように変更
