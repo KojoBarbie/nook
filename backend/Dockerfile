@@ -15,7 +15,7 @@ COPY . .
 ENV PYTHONPATH=/app
 
 # cronジョブの設定（毎日朝9時に実行）
-RUN echo "0 9 * * * cd /app && python -m src.services.run_services --service all >> /var/log/cron.log 2>&1" > /etc/cron.d/nook-cron
+RUN echo "0 9 * * * cd /app && /usr/local/bin/python -m src.services.run_services --service all >> /var/log/cron.log 2>&1" > /etc/cron.d/nook-cron
 RUN chmod 0644 /etc/cron.d/nook-cron
 RUN crontab /etc/cron.d/nook-cron
 RUN touch /var/log/cron.log
